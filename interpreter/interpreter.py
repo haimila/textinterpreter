@@ -1,5 +1,5 @@
 def lines_into_list(tiedosto):
-    with open(tiedosto) as file:
+    with open(str(tiedosto)) as file:
         file_contents = file.read()
 
     lines_in_list = file_contents.split("\n")
@@ -9,10 +9,29 @@ def lines_into_list(tiedosto):
     individual_words = no_line_breaks.split(" ")
     individual_words.pop()
 
-    sorted_list = sorted(individual_words, key=len)
-    return sorted_list
+    individual_words.sort(key=lambda x: (len(x), x))
+    return individual_words
 
-print(lines_into_list("Latin-Lipsum.txt"))
+
+def write_to_file(tiedosto):
+
+    new_file = open("uusitesti.txt", "w+")
+
+    for word in tiedosto:
+        new_file.write(word)
+        new_file.write("\n")
+
+    new_file.close()
+
+try:
+    write_to_file(lines_into_list("Latin-Lipsum.txt"))
+
+except:
+    print("File not found, try again!")
+
+
+
+
 
 
 
